@@ -1,15 +1,16 @@
 ﻿using BookShop.ApplicationServices.Models;
 using BookShop.Core.Entities;
 using BookShop.Infrastructure;
+using BookShop.Infrastructure.EntityFramework;
 
 namespace BookShop.ApplicationServices
 {
     public class ShopService : IShopService
     {
-        private readonly IDatabaseAccesor _databaseAccesor;
-        public ShopService(IDatabaseAccesor databaseAccesor)
+        private readonly ShopDBContext _shopDbContext;
+        public ShopService(ShopDBContext shopDbContext)
         {
-            _databaseAccesor = databaseAccesor;
+            _shopDbContext = shopDbContext;
         }
         public void AddNewShop(AddShopModel model)
         {
@@ -18,7 +19,7 @@ namespace BookShop.ApplicationServices
                 Name = model.Name, 
                 Address = model.Adress
             };
-            _databaseAccesor.CreateNewShop(newshop);
+            _shopDbContext.CreateNewShop(newshop);
         }
     }
 }
